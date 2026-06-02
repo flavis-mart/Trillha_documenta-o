@@ -1,0 +1,5 @@
+site_name: 'Minha Documentação'
+site_description: 'Exercício 2 de documentação'
+
+theme:
+  name:'material'
