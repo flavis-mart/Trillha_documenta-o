@@ -1,17 +1,10 @@
-# Welcome to MkDocs
+# Documentação de exemplo
+## Exercício 3 do módulo 2 de documentação.
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+1. É necessário ler o módulo para entender o assunto;
+2. É necessário praticar os exercícios para absorver o conteúdo;
+3. É necessário explorar para aprender coisas novas.
 
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+```
+# Título em markdown!
+```
