@@ -14,3 +14,4 @@ theme:
 plugins:
   - search
   - advanced-seo
+  - pdf-export
