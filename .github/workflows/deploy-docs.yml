@@ -1,41 +1,36 @@
-name: Deploy MkDocs no GitHub Pages
+name: Deploy MkDocs com Versões
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main 
 
 permissions:
   contents: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
   deploy:
-    name: 📦 Configuração e Build
     runs-on: ubuntu-latest
-   
     steps:
-      - name: Checkout do Repositório
+      - name: Checkout do código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # CRÍTICO: O mike precisa do histórico do Git para gerenciar as versões
 
-      - name: Setup do Python
+      - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: 3.x
 
-      - name: Instalando as Dependêncies
+      - name: Instalar dependências
         run: |
-          pip install mkdocs
-          pip install mkdocs-material
-          pip install mkdocs-meta-descriptions-plugin
-      - name: Build MkDocs (gera a pasta site com as mudanças)
-        run: mkdocs build
+          python -m pip install --upgrade pip
+          pip install mkdocs-material mike
+          
+      - name: Configurar usuário do Git (necessário para o bot fazer o commit)
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
 
-      - name: Deploy da Aplicação (joga as alterações para a branch gh-pages)
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN  }}
-          publish_dir: ./site
-          publish_branch: gh-pages
+      - name: Deploy da versão de desenvolvimento
+        run: mike deploy --push dev

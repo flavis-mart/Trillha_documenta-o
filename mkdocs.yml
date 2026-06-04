@@ -11,6 +11,11 @@ theme:
     primary: 'blue'
     accent: 'pink'
 
+extra:
+  version:
+    provider: mike
+
+
 plugins:
   - search
   - advanced-seo
