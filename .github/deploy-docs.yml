@@ -1,0 +1,41 @@
+name: Deploy MkDocs no GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: 📦 Configuração e Build
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Setup do Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Instalando as Dependêncies
+        run: |
+          pip install mkdocs
+          pip install mkdocs-material
+          pip install mkdocs-meta-descriptions-plugin
+      - name: Build MkDocs (gera a pasta site com as mudanças)
+        run: mkdocs build
+
+      - name: Deploy da Aplicação (joga as alterações para a branch gh-pages)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN  }}
+          publish_dir: ./site
+          publish_branch: gh-pages
